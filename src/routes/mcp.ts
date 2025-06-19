@@ -8,7 +8,7 @@ const profilesDir = path.join(__dirname, "..", "..", "static", "profiles");
 
 export default function () {
   app.post(
-    "/fortnite/api/game/v2/profile/:accountId/client/:operation",
+    "/fortnite/api/game/v2/profile/:accountId/:type/:operation",
     async (c) => {
       const body = await c.req.json();
       let MultiUpdate: any = [];
