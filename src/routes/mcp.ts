@@ -300,170 +300,170 @@ export default function () {
           profile.rvn += 1;
           profile.commandRevision += 1;
           break;
-case "SetCosmeticLockerSlot": // br locker 2
-  if (body.category && body.lockerItem && body.itemToSlot) {
-    let itemToSlot = body.itemToSlot;
-    let itemToSlotID = "";
+        case "SetCosmeticLockerSlot": // br locker 2
+          if (body.category && body.lockerItem && body.itemToSlot) {
+            let itemToSlot = body.itemToSlot;
+            let itemToSlotID = "";
 
-    if (body.itemToSlot) {
-      for (let itemId in profile.items) {
-        if (profile.items[itemId]?.templateId?.toLowerCase() == body.itemToSlot.toLowerCase()) { 
-          itemToSlotID = itemId; 
-          break; 
-        }
-      }
-    }
-
-    let Variants = body.variantUpdates;
-    if (Array.isArray(Variants) && itemToSlotID) {
-      if (!profile.items[itemToSlotID]) {
-        profile.items[itemToSlotID] = { attributes: { variants: [] } };
-      }
-      
-      for (let i in Variants) {
-        if (typeof Variants[i] != "object") continue;
-        if (!Variants[i].channel) continue;
-        if (!Variants[i].active) continue;
-
-        if (profile.items[itemToSlotID]) {
-          let item = profile.items[itemToSlotID];
-          if (!item.attributes.variants) item.attributes.variants = [];
-          
-          let index = item.attributes.variants.findIndex(
-            (x: any) => x.channel == Variants[i].channel
-          );
-
-          if (index == -1) {
-            item.attributes.variants.push({
-              channel: Variants[i].channel,
-              active: Variants[i].active,
-              owned: Variants[i].owned || []
-            });
-          } else {
-            item.attributes.variants[index].active = Variants[i].active;
-          }
-        }
-      }
-
-      profileChanges.push({
-        changeType: "itemAttrChanged",
-        itemId: itemToSlotID,
-        attributeName: "variants",
-        attributeValue: profile.items[itemToSlotID] ? profile.items[itemToSlotID].attributes.variants : [],
-      });
-    }
-
-    switch (body.category) {
-      case "Character":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.Character.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_character = itemToSlotID || itemToSlot;
-        break;
-      case "Backpack":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.Backpack.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_backpack = itemToSlotID || itemToSlot;
-        break;
-      case "Pickaxe":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.Pickaxe.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_pickaxe = itemToSlotID || itemToSlot;
-        break;
-      case "Glider":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.Glider.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_glider = itemToSlotID || itemToSlot;
-        break;
-      case "SkyDiveContrail":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.SkyDiveContrail.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_skydivecontrail = itemToSlotID || itemToSlot;
-        break;
-      case "MusicPack":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.MusicPack.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_musicpack = itemToSlotID || itemToSlot;
-        break;
-      case "LoadingScreen":
-        profile.items[
-          body.lockerItem
-        ].attributes.locker_slots_data.slots.LoadingScreen.items = [
-          itemToSlot,
-        ];
-        profile.stats.attributes.favorite_loadingscreen = itemToSlotID || itemToSlot;
-        break;
-      case "Dance":
-        const indexWithinSlot = body.slotIndex || 0;
-        if (indexWithinSlot >= 0 && indexWithinSlot <= 5) {
-          profile.items[
-            body.lockerItem
-          ].attributes.locker_slots_data.slots.Dance.items[
-            indexWithinSlot
-          ] = itemToSlot;
-          
-          if (!profile.stats.attributes.favorite_dance) profile.stats.attributes.favorite_dance = [];
-          profile.stats.attributes.favorite_dance[indexWithinSlot] = itemToSlotID || itemToSlot;
-        }
-        break;
-      case "ItemWrap":
-        const indexWithinWrap = body.slotIndex || 0;
-        if (indexWithinWrap >= 0) {
-          if (indexWithinWrap <= 7) {
-            profile.items[
-              body.lockerItem
-            ].attributes.locker_slots_data.slots.ItemWrap.items[
-              indexWithinWrap
-            ] = itemToSlot;
-            
-            if (!profile.stats.attributes.favorite_itemwraps) profile.stats.attributes.favorite_itemwraps = [];
-            profile.stats.attributes.favorite_itemwraps[indexWithinWrap] = itemToSlotID || itemToSlot;
-          } else if (indexWithinWrap == -1) {
-            for (let i = 0; i < 7; i++) {
-              profile.items[
-                body.lockerItem
-              ].attributes.locker_slots_data.slots.ItemWrap.items[i] = itemToSlot;
-              
-              if (!profile.stats.attributes.favorite_itemwraps) profile.stats.attributes.favorite_itemwraps = [];
-              profile.stats.attributes.favorite_itemwraps[i] = itemToSlotID || itemToSlot;
+            if (body.itemToSlot) {
+              for (let itemId in profile.items) {
+                if (profile.items[itemId]?.templateId?.toLowerCase() == body.itemToSlot.toLowerCase()) {
+                  itemToSlotID = itemId;
+                  break;
+                }
+              }
             }
+
+            let Variants = body.variantUpdates;
+            if (Array.isArray(Variants) && itemToSlotID) {
+              if (!profile.items[itemToSlotID]) {
+                profile.items[itemToSlotID] = { attributes: { variants: [] } };
+              }
+
+              for (let i in Variants) {
+                if (typeof Variants[i] != "object") continue;
+                if (!Variants[i].channel) continue;
+                if (!Variants[i].active) continue;
+
+                if (profile.items[itemToSlotID]) {
+                  let item = profile.items[itemToSlotID];
+                  if (!item.attributes.variants) item.attributes.variants = [];
+
+                  let index = item.attributes.variants.findIndex(
+                    (x: any) => x.channel == Variants[i].channel
+                  );
+
+                  if (index == -1) {
+                    item.attributes.variants.push({
+                      channel: Variants[i].channel,
+                      active: Variants[i].active,
+                      owned: Variants[i].owned || []
+                    });
+                  } else {
+                    item.attributes.variants[index].active = Variants[i].active;
+                  }
+                }
+              }
+
+              profileChanges.push({
+                changeType: "itemAttrChanged",
+                itemId: itemToSlotID,
+                attributeName: "variants",
+                attributeValue: profile.items[itemToSlotID] ? profile.items[itemToSlotID].attributes.variants : [],
+              });
+            }
+
+            switch (body.category) {
+              case "Character":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.Character.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_character = itemToSlotID || itemToSlot;
+                break;
+              case "Backpack":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.Backpack.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_backpack = itemToSlotID || itemToSlot;
+                break;
+              case "Pickaxe":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.Pickaxe.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_pickaxe = itemToSlotID || itemToSlot;
+                break;
+              case "Glider":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.Glider.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_glider = itemToSlotID || itemToSlot;
+                break;
+              case "SkyDiveContrail":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.SkyDiveContrail.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_skydivecontrail = itemToSlotID || itemToSlot;
+                break;
+              case "MusicPack":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.MusicPack.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_musicpack = itemToSlotID || itemToSlot;
+                break;
+              case "LoadingScreen":
+                profile.items[
+                  body.lockerItem
+                ].attributes.locker_slots_data.slots.LoadingScreen.items = [
+                    itemToSlot,
+                  ];
+                profile.stats.attributes.favorite_loadingscreen = itemToSlotID || itemToSlot;
+                break;
+              case "Dance":
+                const indexWithinSlot = body.slotIndex || 0;
+                if (indexWithinSlot >= 0 && indexWithinSlot <= 5) {
+                  profile.items[
+                    body.lockerItem
+                  ].attributes.locker_slots_data.slots.Dance.items[
+                    indexWithinSlot
+                  ] = itemToSlot;
+
+                  if (!profile.stats.attributes.favorite_dance) profile.stats.attributes.favorite_dance = [];
+                  profile.stats.attributes.favorite_dance[indexWithinSlot] = itemToSlotID || itemToSlot;
+                }
+                break;
+              case "ItemWrap":
+                const indexWithinWrap = body.slotIndex || 0;
+                if (indexWithinWrap >= 0) {
+                  if (indexWithinWrap <= 7) {
+                    profile.items[
+                      body.lockerItem
+                    ].attributes.locker_slots_data.slots.ItemWrap.items[
+                      indexWithinWrap
+                    ] = itemToSlot;
+
+                    if (!profile.stats.attributes.favorite_itemwraps) profile.stats.attributes.favorite_itemwraps = [];
+                    profile.stats.attributes.favorite_itemwraps[indexWithinWrap] = itemToSlotID || itemToSlot;
+                  } else if (indexWithinWrap == -1) {
+                    for (let i = 0; i < 7; i++) {
+                      profile.items[
+                        body.lockerItem
+                      ].attributes.locker_slots_data.slots.ItemWrap.items[i] = itemToSlot;
+
+                      if (!profile.stats.attributes.favorite_itemwraps) profile.stats.attributes.favorite_itemwraps = [];
+                      profile.stats.attributes.favorite_itemwraps[i] = itemToSlotID || itemToSlot;
+                    }
+                  }
+                }
+                break;
+              default:
+                break;
+            }
+
+            profile.rvn += 1;
+            profile.commandRevision += 1;
+
+            profileChanges.push({
+              changeType: "itemAttrChanged",
+              itemId: body.lockerItem,
+              attributeName: "locker_slots_data",
+              attributeValue:
+                profile.items[body.lockerItem].attributes.locker_slots_data,
+            });
           }
-        }
-        break;
-      default:
-        break;
-    }
-
-    profile.rvn += 1;
-    profile.commandRevision += 1;
-
-    profileChanges.push({
-      changeType: "itemAttrChanged",
-      itemId: body.lockerItem,
-      attributeName: "locker_slots_data",
-      attributeValue:
-        profile.items[body.lockerItem].attributes.locker_slots_data,
-    });
-  }
-  break;
-          case "ClaimMfaEnabled":
+          break;
+        case "ClaimMfaEnabled":
           break;
         case "PutModularCosmeticLoadout": // br locker 3
           const { loadoutType, presetId, loadoutData } = await c.req.json();
