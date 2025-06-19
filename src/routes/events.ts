@@ -56,7 +56,7 @@ export default function () {
             ].map((template: any) => {
                 const templateObj = { ...template };
                 if (typeof templateObj.eventTemplateId === "string") {
-                    templateObj.eventTemplateId = templateObj.eventTemplateId.replace(/S8/g, `S${ver.season}`);
+                    templateObj.eventTemplateId = templateObj.eventTemplateId.replace(/S13/g, `S${ver.season}`);
                 }
                 return templateObj;
             });
