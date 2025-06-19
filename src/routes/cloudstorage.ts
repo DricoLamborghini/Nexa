@@ -147,18 +147,19 @@ export default function () {
   app.get("/fortnite/api/cloudstorage/user/:accountId", async (c) => {
     const accountId = c.req.param("accountId");
     try {
-      let clientSettingsPath = path.join(
+      const clientSettingsPath = path.join(
         __dirname,
         "..",
         "..",
         "static",
-        "ClientSettings"
+        "ClientSettings",
+        accountId
       );
-      if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath);
+      if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
 
       const ver = getVersion(c);
 
-      let file = path.join(
+      const file = path.join(
         clientSettingsPath,
         `ClientSettings-${ver.season}.Sav`
       );
@@ -197,18 +198,17 @@ export default function () {
 
   app.put("/fortnite/api/cloudstorage/user/:accountId/:file", async (c) => {
     const filename = c.req.param("file");
+    const accountId = c.req.param("accountId");
 
     const clientSettingsPath = path.join(
-      __dirname,
-      "..",
-      "..",
-      "static",
-      "ClientSettings"
-    );
-
-    if (!fs.existsSync(clientSettingsPath)) {
-      fs.mkdirSync(clientSettingsPath, { recursive: true });
-    }
+        __dirname,
+        "..",
+        "..",
+        "static",
+        "ClientSettings",
+        accountId
+      );
+      if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
 
     if (filename.toLowerCase() !== "clientsettings.sav") {
       return c.json([]);
@@ -235,17 +235,16 @@ export default function () {
   });
 
   app.get("/fortnite/api/cloudstorage/user/:accountId/:file", async (c) => {
+    const accountId = c.req.param("accountId");
     const clientSettingsPath = path.join(
-      __dirname,
-      "..",
-      "..",
-      "static",
-      "ClientSettings"
-    );
-
-    if (!fs.existsSync(clientSettingsPath)) {
-      fs.mkdirSync(clientSettingsPath);
-    }
+        __dirname,
+        "..",
+        "..",
+        "static",
+        "ClientSettings",
+        accountId
+      );
+      if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
 
     const ver = getVersion(c);
 
