@@ -18,6 +18,8 @@ function getEvents(ver: any) {
     createEvent(`EventFlag.${ver.lobby}`),
   ];
 
+  console.log(ver)
+
   if (ver.build == 4.5) {
     events.push(createEvent("EventFlag.BR_S4_Geode_Countdown"));
   }
@@ -88,170 +90,171 @@ function getEvents(ver: any) {
       ]);
     }
 
-    if (ver.build == 12.41) {
-      events.push(createEvent("JCD01"));
-    }
+  }
 
-    if (ver.build == 12.61) {
-      events.push(createEvent("FLA01"));
-    }
+  if (ver.build == 12.41) {
+    events.push(createEvent("JCD01"));
+  }
 
-    if (ver.season == 13) {
-      if (config.WaterLevel == 1) {
-        events.push(createEvent("WL1"));
-      }
-      if (config.WaterLevel == 2) {
-        events.push(createEvent("WL2"));
-      }
-      if (config.WaterLevel == 3) {
-        events.push(createEvent("WL3"));
-      }
-      if (config.WaterLevel == 4) {
-        events.push(createEvent("WL4"));
-      }
-      if (config.WaterLevel == 5) {
-        events.push(createEvent("WL5"));
-      }
-      if (config.WaterLevel == 6) {
-        events.push(createEvent("WL6"));
-      }
-      if (config.WaterLevel == 7) {
-        events.push(createEvent("WL7"));
-      }
-    }
+  if (ver.build == 12.61) {
+    events.push(createEvent("FLA01"));
+  }
 
-    if (ver.build == 13.4) {
-      events.push(createEvent("SM1"));
+  if (ver.season == 13) {
+    if (config.WaterLevel == 1) {
+      events.push(createEvent("WL1"));
     }
-
-    if (ver.build == 14.6) {
-      events.push(createEvent("FLA01"));
+    if (config.WaterLevel == 2) {
+      events.push(createEvent("WL2"));
     }
-
-    if (ver.build == 17.3) {
-      events.push(createEvent("BEL01"));
-      events.push(createEvent("BEL02"));
-      events.push(createEvent("BEP02"));
-      events.push(createEvent("BPLS"));
-      events.push(createEvent("BTP"));
-      events.push(createEvent("BAP"));
-      events.push(createEvent("BTL01"));
+    if (config.WaterLevel == 3) {
+      events.push(createEvent("WL3"));
     }
-
-    if (ver.build == 17.5) {
-      events.push(createEvent("KEL01"));
-      events.push(createEvent("KEL02"));
+    if (config.WaterLevel == 4) {
+      events.push(createEvent("WL4"));
     }
-
-    if (ver.build == 18.4 || ver.season == 18) {
-      events.push(createEvent("GGL01"));
-      events.push(createEvent("GGL02")); // Chapter 2 Finale Event (Countdown)
-      events.push(createEvent("LCCS02"));
-      events.push(createEvent("LCCS01"));
-      events.push(createEvent("LCCSP01"));
-      events.push(createEvent("CTCS01"));
-      events.push(createEvent("GCFP01"));
-      events.push(createEvent("GCMFP01"));
-      events.push(createEvent("CSAWS01"));
-      events.push(createEvent("CSAWS02"));
-      events.push(createEvent("CSAWS03"));
-      events.push(createEvent("CSAWS04"));
-      events.push(createEvent("CSAWS05"));
+    if (config.WaterLevel == 5) {
+      events.push(createEvent("WL5"));
     }
-
-    if (ver.build == 20.4) {
-      // Collision Event
-      events.push(createEvent("AL01"));
-      events.push(createEvent("AL02"));
+    if (config.WaterLevel == 6) {
+      events.push(createEvent("WL6"));
     }
-
-    if (ver.build == 21.4) {
-      // Dragon Ball
-      events.push(createEvent("Event_S21_Stamina"));
+    if (config.WaterLevel == 7) {
+      events.push(createEvent("WL7"));
     }
+  }
 
-    if (ver.build == 22.4) {
-      // Fracture Event
-      events.push(createEvent("RL01"));
+  if (ver.build == 13.4) {
+    events.push(createEvent("SM1"));
+  }
+
+  if (ver.build == 14.6) {
+    events.push(createEvent("FLA01"));
+  }
+
+  if (ver.build == 17.3) {
+    events.push(createEvent("BEL01"));
+    events.push(createEvent("BEL02"));
+    events.push(createEvent("BEP02"));
+    events.push(createEvent("BPLS"));
+    events.push(createEvent("BTP"));
+    events.push(createEvent("BAP"));
+    events.push(createEvent("BTL01"));
+  }
+
+  if (ver.build == 17.5) {
+    events.push(createEvent("KEL01"));
+    events.push(createEvent("KEL02"));
+  }
+
+  if (ver.build == 18.4 || ver.season == 18) {
+    events.push(createEvent("GGL01"));
+    events.push(createEvent("GGL02")); // Chapter 2 Finale Event (Countdown)
+    events.push(createEvent("LCCS02"));
+    events.push(createEvent("LCCS01"));
+    events.push(createEvent("LCCSP01"));
+    events.push(createEvent("CTCS01"));
+    events.push(createEvent("GCFP01"));
+    events.push(createEvent("GCMFP01"));
+    events.push(createEvent("CSAWS01"));
+    events.push(createEvent("CSAWS02"));
+    events.push(createEvent("CSAWS03"));
+    events.push(createEvent("CSAWS04"));
+    events.push(createEvent("CSAWS05"));
+  }
+
+  if (ver.build == 20.4) {
+    // Collision Event
+    events.push(createEvent("AL01"));
+    events.push(createEvent("AL02"));
+  }
+
+  if (ver.build == 21.4) {
+    // Dragon Ball
+    events.push(createEvent("Event_S21_Stamina"));
+  }
+
+  if (ver.build == 22.4) {
+    // Fracture Event
+    events.push(createEvent("RL01"));
+  }
+
+  if (ver.build == 23.1) {
+    // Winterfest 2022
+    events.push(createEvent("CalendarEvent_Season23_Winterfest"));
+    events.push(createEvent("EventFlag.LTE_WinterFestTab"));
+  }
+
+  if (ver.build == 23.5) {
+    // Most Wanted tab
+    events.push(createEvent("EventFlag.Event_Vaultbreakers"));
+  }
+
+  if (ver.build == 24.4) {
+    // Star Wars 2023 tab
+    events.push(createEvent("EventFlag.Event_PlotTwist"));
+  }
+
+  if (ver.build == 25.3) {
+    // Jujutsu Kaisen tab
+    events.push(createEvent("EventFlag.Event_BelongTreaty"));
+  }
+
+  if (ver.build == 27.11) {
+    // Durian Event
+    events.push(createEvent("DL01"));
+    events.push(createEvent("DL02"));
+
+    if (config.RufusStage == 2) {
+      events.push(createEvent("RufusWeek2"));
     }
-
-    if (ver.build == 23.1) {
-      // Winterfest 2022
-      events.push(createEvent("CalendarEvent_Season23_Winterfest"));
-      events.push(createEvent("EventFlag.LTE_WinterFestTab"));
+    if (config.RufusStage == 3) {
+      events.push(createEvent("RufusWeek3"));
     }
-
-    if (ver.build == 23.5) {
-      // Most Wanted tab
-      events.push(createEvent("EventFlag.Event_Vaultbreakers"));
+    if (config.RufusStage == 4) {
+      events.push(createEvent("RufusWeek4"));
     }
+  }
 
-    if (ver.build == 24.4) {
-      // Star Wars 2023 tab
-      events.push(createEvent("EventFlag.Event_PlotTwist"));
-    }
+  if (ver.build == 28.1) {
+    // TMNT Tab countdown
+    events.push(createEvent("EventFlag.Event_LinedNotebook_Teaser"));
+  }
 
-    if (ver.build == 25.3) {
-      // Jujutsu Kaisen tab
-      events.push(createEvent("EventFlag.Event_BelongTreaty"));
-    }
+  if (ver.build == 28.2) {
+    // TMNT mini pass
+    events.push(createEvent("EventFlag.Event_LinedNotebook"));
+  }
 
-    if (ver.build == 27.11) {
-      // Durian Event
-      events.push(createEvent("DL01"));
-      events.push(createEvent("DL02"));
+  if (ver.build == 28.3) {
+    //Pre-Emergence Event
+    events.push(createEvent("CH5S1CPPE"));
+  }
 
-      if (config.RufusStage == 2) {
-        events.push(createEvent("RufusWeek2"));
-      }
-      if (config.RufusStage == 3) {
-        events.push(createEvent("RufusWeek3"));
-      }
-      if (config.RufusStage == 4) {
-        events.push(createEvent("RufusWeek4"));
-      }
-    }
+  if (ver.build == 29.0) {
+    events.push(createEvent("EventFlag.Event_S29_SeasonalActivation"));
+  }
 
-    if (ver.build == 28.1) {
-      // TMNT Tab countdown
-      events.push(createEvent("EventFlag.Event_LinedNotebook_Teaser"));
-    }
+  if (ver.build == 29.2 || ver.build == 29.3) {
+    events.push(createEvent("EventFlag.Event_S29_ColdDay"));
+    events.push(createEvent("AtlaShrines"));
+    events.push(createEvent("AtlaScrolls"));
+    events.push(createEvent("AtlaChests"));
+  }
 
-    if (ver.build == 28.2) {
-      // TMNT mini pass
-      events.push(createEvent("EventFlag.Event_LinedNotebook"));
-    }
-
-    if (ver.build == 28.3) {
-      //Pre-Emergence Event
-      events.push(createEvent("CH5S1CPPE"));
-    }
-
-    if (ver.build == 29.0) {
-      events.push(createEvent("EventFlag.Event_S29_SeasonalActivation"));
-    }
-
-    if (ver.build == 29.2 || ver.build == 29.3) {
-      events.push(createEvent("EventFlag.Event_S29_ColdDay"));
-      events.push(createEvent("AtlaShrines"));
-      events.push(createEvent("AtlaScrolls"));
-      events.push(createEvent("AtlaChests"));
-    }
-
-    if (ver.build == 29.4) {
-      events.push(createEvent("EventFlag.Event_Osiris"));
-      events.push(createEvent("SUPERSPORT_BUILDUP_1"));
-      events.push(createEvent("SUPERSPORT_BUILDUP_2"));
-      events.push(createEvent("SUPERSPORT_BUILDUP_3"));
-      events.push(createEvent("SUPERSPORT_CHARGE_1"));
-      events.push(createEvent("SUPERSPORT_STRIKE_1"));
-      events.push(createEvent("SUPERSPORT_CHARGE_2"));
-      events.push(createEvent("SUPERSPORT_STRIKE_2"));
-      events.push(createEvent("SUPERSPORT_CHARGE_3"));
-      events.push(createEvent("SUPERSPORT_STRIKE_3"));
-      events.push(createEvent("SUPERSPORT_SANDSTORM"));
-      events.push(createEvent("SUPERSPORT_LIGHT_2"));
-    }
+  if (ver.build == 29.4) {
+    events.push(createEvent("EventFlag.Event_Osiris"));
+    events.push(createEvent("SUPERSPORT_BUILDUP_1"));
+    events.push(createEvent("SUPERSPORT_BUILDUP_2"));
+    events.push(createEvent("SUPERSPORT_BUILDUP_3"));
+    events.push(createEvent("SUPERSPORT_CHARGE_1"));
+    events.push(createEvent("SUPERSPORT_STRIKE_1"));
+    events.push(createEvent("SUPERSPORT_CHARGE_2"));
+    events.push(createEvent("SUPERSPORT_STRIKE_2"));
+    events.push(createEvent("SUPERSPORT_CHARGE_3"));
+    events.push(createEvent("SUPERSPORT_STRIKE_3"));
+    events.push(createEvent("SUPERSPORT_SANDSTORM"));
+    events.push(createEvent("SUPERSPORT_LIGHT_2"));
   }
 
   return events;
