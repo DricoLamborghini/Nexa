@@ -1,9 +1,9 @@
-import app from "..";
 import axios from "axios";
 import path from "node:path";
 import fs from "node:fs";
+import type { Hono } from "hono";
 
-export default function () {
+export default function (app: Hono) {
   app.post("/datarouter/api/v1/public/data", async (c) => {
     return c.json([]);
   });

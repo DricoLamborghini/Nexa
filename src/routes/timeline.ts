@@ -1,8 +1,9 @@
+import type { Hono } from "hono";
 import app from "..";
 import eventsManager from '../utils/handlers/events'
 import getVersion from "../utils/handlers/getVersion";
 
-export default function () {
+export default function (app: Hono) {
   app.get("/fortnite/api/calendar/v1/timeline", async (c) => {
     const ver = getVersion(c);
     const Events = eventsManager.getEvents(ver);

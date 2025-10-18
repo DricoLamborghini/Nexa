@@ -1,6 +1,6 @@
-import app from "..";
+import type { Hono } from "hono";
 
-export default function () {
+export default function (app: Hono) {
   app.get("/api/v1/games/fortnite/trackprogress/:accountId", async (c) => {
     return c.json([
       {

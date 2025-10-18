@@ -2,12 +2,13 @@ import app from "..";
 import { Nexa } from "../utils/handlers/errors";
 import jwt from "jsonwebtoken";
 import logger from "../utils/logger/logger";
+import type { Hono } from "hono";
 
 interface requestBody {
   [key: string]: any;
 }
 
-export default function () {
+export default function (app: Hono) {
   app.post("/account/api/oauth/token", async (c) => {
     const body: requestBody = await c.req.parseBody();
     let accountId = body.username || "nexa";

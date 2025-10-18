@@ -1,10 +1,10 @@
-import app from "..";
 import crypto from "crypto";
 import fs from "node:fs";
 import path from "node:path";
 import getVersion from "../utils/handlers/getVersion";
+import type { Hono } from "hono";
 
-export default function () {
+export default function (app: Hono) {
   app.get("/fortnite/api/cloudstorage/system", async (c) => {
     try {
       const hotfixesDir = path.join(__dirname, "../../static/hotfixes");
@@ -201,14 +201,14 @@ export default function () {
     const accountId = c.req.param("accountId");
 
     const clientSettingsPath = path.join(
-        __dirname,
-        "..",
-        "..",
-        "static",
-        "ClientSettings",
-        accountId
-      );
-      if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
+      __dirname,
+      "..",
+      "..",
+      "static",
+      "ClientSettings",
+      accountId
+    );
+    if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
 
     if (filename.toLowerCase() !== "clientsettings.sav") {
       return c.json([]);
@@ -237,14 +237,14 @@ export default function () {
   app.get("/fortnite/api/cloudstorage/user/:accountId/:file", async (c) => {
     const accountId = c.req.param("accountId");
     const clientSettingsPath = path.join(
-        __dirname,
-        "..",
-        "..",
-        "static",
-        "ClientSettings",
-        accountId
-      );
-      if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
+      __dirname,
+      "..",
+      "..",
+      "static",
+      "ClientSettings",
+      accountId
+    );
+    if (!fs.existsSync(clientSettingsPath)) fs.mkdirSync(clientSettingsPath, { recursive: true });
 
     const ver = getVersion(c);
 

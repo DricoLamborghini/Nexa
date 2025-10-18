@@ -4,10 +4,11 @@ import getVersion from "../utils/handlers/getVersion";
 import path from "path";
 import fs from "fs";
 import { Nexa } from "../utils/handlers/errors";
+import type { Hono } from "hono";
 
 const keychain = await Bun.file("static/shop/keychain.json").json();
 
-export default function () {
+export default function (app: Hono) {
   app.get("/fortnite/api/storefront/v2/keychain", async (c) => {
     return c.json(keychain);
   });

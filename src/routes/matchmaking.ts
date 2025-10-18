@@ -1,8 +1,9 @@
 import app from "..";
 import jwt from "jsonwebtoken";
 import getVersion from "../utils/handlers/getVersion";
+import type { Hono } from "hono";
 
-export default function () {
+export default function (app: Hono) {
   app.get("/waitingroom/api/waitingroom", async (c) => {
     return c.json([]);
   });

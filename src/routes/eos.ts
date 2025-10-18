@@ -1,6 +1,6 @@
-import app from "..";
+import type { Hono } from "hono";
 
-export default function () {
+export default function (app: Hono) {
   app.get("/epic/friends/v1/:accountId/blocklist", async (c) => {
     return c.json([]);
   });

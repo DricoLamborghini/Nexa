@@ -1,3 +1,4 @@
+import type { Hono } from "hono";
 import app from "..";
 import fs from "node:fs";
 import path from "node:path";
@@ -6,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 const userpath = new Set();
 const profilesDir = path.join(__dirname, "..", "..", "static", "profiles");
 
-export default function () {
+export default function (app: Hono) {
   app.post(
     "/fortnite/api/game/v2/profile/:accountId/:type/:operation",
     async (c) => {

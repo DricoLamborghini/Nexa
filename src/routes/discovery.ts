@@ -1,12 +1,12 @@
-import app from "..";
 import getVersion from "../utils/handlers/getVersion";
 import { Nexa } from "../utils/handlers/errors";
 import discoveryResponses from "../../static/discovery/events";
 import path from "node:path";
 import fs from "node:fs";
 import crypto from "crypto";
+import type { Hono } from "hono";
 
-export default function () {
+export default function (app: Hono) {
   app.get("/fortnite/api/discovery/accessToken/*", async (c) => {
     const useragent: any = c.req.header("user-agent");
     if (!useragent) return c.json(Nexa.internal.invalidUserAgent);

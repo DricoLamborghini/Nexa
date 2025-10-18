@@ -1,9 +1,9 @@
-import app from "..";
+import type { Hono } from "hono";
 import getVersion from "../utils/handlers/getVersion";
 import fs from 'node:fs'
 import path from 'node:path'
 
-export default function () {
+export default function (app: Hono) {
     app.get("/api/v1/events/Fortnite/download/:accountId", async (c) => {
         const accountId = c.req.param("accountId");
 
