@@ -48,6 +48,8 @@ export default function (app: Hono) {
 
     const ver = getVersion(c);
 
+    if (ver.season <= 11) return c.json({}, 200);
+
     switch (true) {
       case ver.build >= 30.1:
         return c.json(v3);
@@ -58,3 +60,4 @@ export default function (app: Hono) {
     }
   });
 }
+
