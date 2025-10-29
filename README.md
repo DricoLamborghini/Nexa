@@ -29,6 +29,20 @@ To run:
 ```bash
 bun run src/index.ts
 ```
+(Note For Discord)
+The .env needs to be like this:
+```
+# === MongoDB Database ===
+MONGO_URI=mongodb://127.0.0.1:27017/nexa
+
+# === Discord Bot Credentials ===
+DISCORD_BOT_TOKEN=bot_token
+DISCORD_CLIENT_ID=bot_app_id
+
+# Guild ID
+DISCORD_GUILD_ID=server_id
+```
+
 
 # Used API's
 
