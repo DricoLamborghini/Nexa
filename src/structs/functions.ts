@@ -5,20 +5,25 @@ import { SaCCodes } from "../models/SaCCodes";
 import { createProfiles, createUserStatsProfiles } from "./profile";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-
+// scuffed id generator
 function MakeID() {
   if ((crypto as any).randomUUID) return (crypto as any).randomUUID();
-  return crypto.createHash('sha1').update(String(Date.now())+Math.random()).digest('hex');
+  return crypto.createHash("sha1").update(String(Date.now()) + Math.random()).digest("hex");
 }
 
-export async function registerUser(discordId: string | null, username: string, email: string, plainPassword: string) {
+export async function registerUser(
+  discordId: string | null,
+  username: string,
+  email: string,
+  plainPassword: string
+) {
   email = email.toLowerCase();
 
   if (!username || !email || !plainPassword) {
     return { message: "Username, email, or password is required.", status: 400 };
   }
 
-  if (discordId && await User.findOne({ discordId })) {
+  if (discordId && (await User.findOne({ discordId }))) {
     return { message: "You already created an account!", status: 400 };
   }
 
@@ -26,30 +31,29 @@ export async function registerUser(discordId: string | null, username: string, e
     return { message: "Email is already in use.", status: 400 };
   }
 
-  const accountId = MakeID().replace(/-/ig, "");
-  const matchmakingId = MakeID().replace(/-/ig, "");
+  const accountId = MakeID().replace(/-/g, "");
+  const matchmakingId = MakeID().replace(/-/g, "");
 
-  const emailFilter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  const emailFilter = /^([a-zA-Z0-9_\.\-])+@(([a-zA-Z0-9\-])+.)+([a-zA-Z0-9]{2,4})+$/;
   if (!emailFilter.test(email)) {
     return { message: "You did not provide a valid email address.", status: 400 };
   }
-  if (username.length >= 25) {
-    return { message: "Your username must be less than 25 characters long.", status: 400 };
-  }
-  if (username.length < 3) {
-    return { message: "Your username must be at least 3 characters long.", status: 400 };
-  }
-  if (plainPassword.length >= 128) {
-    return { message: "Your password must be less than 128 characters long.", status: 400 };
-  }
-  if (plainPassword.length < 4) {
-    return { message: "Your password must be at least 4 characters long.", status: 400 };
+
+  if (username.length >= 25 || username.length < 3) {
+    return { message: "Username must be between 3 and 25 characters long.", status: 400 };
   }
 
-  const allowedCharacters = (" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~").split("") as string[];
-  for (let character of username) {
-    if (!allowedCharacters.includes(character)) {
-      return { message: "Your username has special characters, please remove them and try again.", status: 400 };
+  if (plainPassword.length >= 128 || plainPassword.length < 4) {
+    return { message: "Password must be between 4 and 128 characters long.", status: 400 };
+  }
+
+  const allowedCharacters =
+    " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~".split(
+      ""
+    );
+  for (const ch of username) {
+    if (!allowedCharacters.includes(ch)) {
+      return { message: "Your username contains invalid characters.", status: 400 };
     }
   }
 
@@ -57,6 +61,7 @@ export async function registerUser(discordId: string | null, username: string, e
 
   try {
     const created = new Date();
+
     const user = await User.create({
       created,
       discordId: discordId || null,
@@ -65,19 +70,27 @@ export async function registerUser(discordId: string | null, username: string, e
       username_lower: username.toLowerCase(),
       email,
       password: hashedPassword,
-      matchmakingId
+      matchmakingId,
     });
 
-    await Profile.create({ created: user.created, accountId: user.accountId, profiles: createProfiles(user.accountId) });
+    const athenaProfile = createProfiles(user.accountId);
+
+    await Profile.create({
+      created: user.created,
+      accountId: user.accountId,
+      profiles: athenaProfile,
+    });
+
     await Friends.create({ created: user.created, accountId: user.accountId });
+
     createUserStatsProfiles(user.accountId);
   } catch (err: any) {
-    if (err.code == 11000) {
-      return { message: `Username or email is already in use.`, status: 400 };
+    if (err.code === 11000) {
+      return { message: "Username or email is already in use.", status: 400 };
     }
-    console.error("registerUser error", err);
-    return { message: "An unknown error has occurred, please try again later.", status: 400 };
+    console.error("[registerUser] Error:", err);
+    return { message: "An unknown error has occurred.", status: 400 };
   }
 
-  return { message: `Successfully created an account with the username **${username}**`, status: 200 };
+  return { message: `Successfully created account **${username}**.`, status: 200 };
 }
