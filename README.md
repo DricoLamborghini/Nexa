@@ -39,7 +39,6 @@ bun run src/index.ts
 - [Hybrid](https://github.com/HybridFNBR) for Discovery for 26.30+ and MOTD
 
 - [Zetax](https://github.com/simplyzetax) for Error responses
-- [drico](https://github.com/dricotec) for MongoDB compatibility and Discord bot W/ Commands
 
 ## Added features
 - MongoDB connection using mongoose (src/services/mongo.ts)
