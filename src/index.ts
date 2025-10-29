@@ -5,6 +5,12 @@ import { Nexa } from "./utils/handlers/errors";
 import logger from "./utils/logger/logger";
 import { cors } from "hono/cors";
 
+// initialize DB and (optionally) Discord bot
+import { connectDB } from "./services/mongo";
+import "./discord/bot";
+
+await connectDB();
+
 const app = new Hono({ strict: false });
 
 app.use("*", cors());

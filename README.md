@@ -39,3 +39,16 @@ bun run src/index.ts
 - [Hybrid](https://github.com/HybridFNBR) for Discovery for 26.30+ and MOTD
 
 - [Zetax](https://github.com/simplyzetax) for Error responses
+
+
+## Added features
+- MongoDB connection using mongoose (src/services/mongo.ts)
+- User model (src/models/User.ts)
+- Discord bot with `/create_account` slash command (src/discord/bot.ts)
+
+## Setup
+1. Copy `.env.example` to `.env` and fill values.
+2. Install dependencies: `bun i` or `npm install` (project uses bun by default)
+3. Build / run according to your environment.
+
+**Note:** Passwords are currently stored in plaintext in the DB for simplicity — I recommend hashing with bcrypt before production.
